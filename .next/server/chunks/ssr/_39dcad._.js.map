@@ -1,0 +1,11 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file://C%3A/code/my-medusa-store-storefront/src/lib/util/env.ts"],"sourcesContent":["export const getBaseURL = () => {\r\n  return process.env.NEXT_PUBLIC_BASE_URL || \"https://localhost:8000\"\r\n}\r\n"],"names":[],"mappings":";;;AAAO,MAAM,aAAa;IACxB,OAAO,6DAAoC;AAC7C"}},
+    {"offset": {"line": 13, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}},
+    {"offset": {"line": 19, "column": 0}, "map": {"version":3,"sources":["file://C%3A/code/my-medusa-store-storefront/src/app/layout.tsx"],"sourcesContent":["import { getBaseURL } from \"@lib/util/env\"\r\nimport { Metadata } from \"next\"\r\nimport \"styles/globals.css\"\r\n\r\nexport const metadata: Metadata = {\r\n  metadataBase: new URL(getBaseURL()),\r\n}\r\n\r\nexport default function RootLayout(props: { children: React.ReactNode }) {\r\n  return (\r\n    <html lang=\"en\" data-mode=\"light\">\r\n      <body>\r\n        <main className=\"relative\">{props.children}</main>\r\n      </body>\r\n    </html>\r\n  )\r\n}\r\n"],"names":[],"mappings":";;;;;AAAA;;;;AAIO,MAAM,WAAqB;IAChC,cAAc,IAAI,IAAI,CAAA,GAAA,yHAAA,CAAA,aAAU,AAAD;AACjC;AAEe,SAAS,WAAW,KAAoC;IACrE,qBACE,8OAAC;QAAK,MAAK;QAAK,aAAU;kBACxB,cAAA,8OAAC;sBACC,cAAA,8OAAC;gBAAK,WAAU;0BAAY,MAAM,QAAQ;;;;;;;;;;;;;;;;AAIlD"}},
+    {"offset": {"line": 55, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}},
+    {"offset": {"line": 66, "column": 0}, "map": {"version":3,"sources":["file://C%3A/code/my-medusa-store-storefront/node_modules/next/src/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.ts"],"sourcesContent":["module.exports = require('../../module.compiled').vendored[\n  'react-rsc'\n].ReactJsxDevRuntime\n"],"names":["module","exports","require","vendored","ReactJsxDevRuntime"],"mappings":";AAAAA,OAAOC,OAAO,GAAGC,QAAQ,0HAAyBC,QAAQ,CACxD,YACD,CAACC,kBAAkB","ignoreList":[0]}},
+    {"offset": {"line": 68, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}
