@@ -44,6 +44,19 @@ export default async function Nav() {
               fallback={
                 <LocalizedClientLink
                   className="hover:text-ui-fg-base flex gap-2"
+                  href="/compare"
+                  data-testid="nav-compare-link"
+                >
+                  Compare (0)
+                </LocalizedClientLink>
+              }
+            >
+              <CompareButton />
+            </Suspense>
+            <Suspense
+              fallback={
+                <LocalizedClientLink
+                  className="hover:text-ui-fg-base flex gap-2"
                   href="/cart"
                   data-testid="nav-cart-link"
                 >
