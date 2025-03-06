@@ -6,13 +6,17 @@ import {
   PopoverPanel,
   Transition,
 } from "@headlessui/react"
+import { Fragment, useCallback, useEffect, useRef, useState } from "react"
+import { usePathname } from "next/navigation"
+
 import { Button, IconButton } from "@medusajs/ui"
 import { XCircle, Trash } from "@medusajs/icons"
+
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import Thumbnail from "@modules/products/components/thumbnail"
-import { usePathname } from "next/navigation"
-import { Fragment, useCallback, useEffect, useRef, useState } from "react"
+
 import { useCompare, MIN_COMPARED_PRODUCTS } from "@lib/context/compare-context"
+
 import CompareSlot, { compareSlotStyles } from "./components/compare-slot"
 
 const CompareDropdown = () => {
@@ -21,7 +25,6 @@ const CompareDropdown = () => {
   const [compareDropdownOpen, setCompareDropdownOpen] = useState(false)
 
   const totalComparedProducts = comparedProducts.length
-  const previousComparedProductsCountRef = useRef<number>(totalComparedProducts)
   const pathname = usePathname()
 
   const clearActiveTimer = useCallback(() => {
@@ -41,6 +44,9 @@ const CompareDropdown = () => {
   }, [open, close, clearActiveTimer])
 
   const openAndCancel = useCallback(() => {
+    if (pathname.includes("/compare")) {
+      return
+    }
     clearActiveTimer()
     open()
   }, [clearActiveTimer, open])
