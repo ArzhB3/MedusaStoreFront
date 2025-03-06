@@ -1,4 +1,4 @@
-import { CompareProvider } from "@lib/context/compare-context"
+import { Providers } from "@lib/providers"
 import { getBaseURL } from "@lib/util/env"
 import { Metadata } from "next"
 import "styles/globals.css"
@@ -11,9 +11,9 @@ export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en" data-mode="light">
       <body>
-        <CompareProvider>
+        <Providers>
           <main className="relative">{props.children}</main>
-        </CompareProvider>
+        </Providers>
       </body>
     </html>
   )

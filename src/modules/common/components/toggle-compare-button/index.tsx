@@ -2,7 +2,7 @@
 
 import { useCallback, memo } from "react"
 import { HttpTypes } from "@medusajs/types"
-import { Button } from "@medusajs/ui"
+import { Button, toast } from "@medusajs/ui"
 import { GridList, Plus, Check } from "@medusajs/icons"
 import { useCompare, MAX_COMPARED_PRODUCTS } from "@lib/context/compare-context"
 import { ComparedProduct } from "types/global"
@@ -34,6 +34,20 @@ function ToggleCompareButton({
         isCompared: !isCompared,
       }
       toggleComparedProduct(comparedProduct)
+
+      isCompared
+        ? toast.info("Compared product removed", {
+            description: `${product.title} has been removed from the comparison list`,
+            dismissable: true,
+            position: "top-right",
+            duration: 2000,
+          })
+        : toast.success("Compared product added", {
+            description: `${product.title} has been added to the comparison list`,
+            dismissable: true,
+            position: "top-right",
+            duration: 2000,
+          })
     },
     [isComparedFull, product, isCompared, toggleComparedProduct]
   )

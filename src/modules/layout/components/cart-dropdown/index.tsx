@@ -47,6 +47,10 @@ const CartDropdown = ({
   }
 
   const openAndCancel = () => {
+    if (pathname.includes("/cart")) {
+      return
+    }
+
     if (activeTimer) {
       clearTimeout(activeTimer)
     }
