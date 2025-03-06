@@ -37,33 +37,17 @@ const CompareDropdown = () => {
   const open = useCallback(() => setCompareDropdownOpen(true), [])
   const close = useCallback(() => setCompareDropdownOpen(false), [])
 
-  const timedOpen = useCallback(() => {
-    open()
-    clearActiveTimer()
-    timerRef.current = setTimeout(close, 2000)
-  }, [open, close, clearActiveTimer])
-
   const openAndCancel = useCallback(() => {
     if (pathname.includes("/compare")) {
       return
     }
     clearActiveTimer()
     open()
-  }, [clearActiveTimer, open])
+  }, [clearActiveTimer, open, pathname])
 
   useEffect(() => {
     return clearActiveTimer
   }, [clearActiveTimer])
-
-  useEffect(() => {
-    if (
-      previousComparedProductsCountRef.current !== totalComparedProducts &&
-      !pathname.includes("/compare")
-    ) {
-      timedOpen()
-    }
-    previousComparedProductsCountRef.current = totalComparedProducts
-  }, [totalComparedProducts, pathname, timedOpen])
 
   return (
     <div
@@ -102,7 +86,7 @@ const CompareDropdown = () => {
                   className="transition-all duration-300 ease-in-out absolute top-1/2 right-4 -translate-y-1/2 hover:text-red-600 hover:bg-gray-300"
                   onClick={clearProducts}
                   data-testid="clear-all-compare-product-button"
-                  title="Clear compared products list"
+                  title="Clear all"
                 >
                   <Trash />
                 </IconButton>
@@ -149,14 +133,7 @@ const CompareDropdown = () => {
               )}
             </div>
             <div className="flex flex-col gap-y-4 px-4 py-4 text-small-regular">
-              <LocalizedClientLink
-                href={
-                  totalComparedProducts >= MIN_COMPARED_PRODUCTS
-                    ? "/compare"
-                    : "/compare/not-found"
-                }
-                passHref
-              >
+              <LocalizedClientLink href="/compare" passHref>
                 <Button
                   className={`w-full transition-all duration-300 ease-in-out transform ${
                     totalComparedProducts < MIN_COMPARED_PRODUCTS
