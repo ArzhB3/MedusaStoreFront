@@ -7,6 +7,13 @@ export type FeaturedProduct = {
   thumbnail?: string
 }
 
+export type ComparedProduct = {
+  id: string
+  handle: string
+  thumbnail?: string | null
+  isCompared: boolean
+}
+
 export type VariantPrice = {
   calculated_price_number: number
   calculated_price: string

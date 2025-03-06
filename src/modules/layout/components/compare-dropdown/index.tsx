@@ -6,74 +6,64 @@ import {
   PopoverPanel,
   Transition,
 } from "@headlessui/react"
-import { HttpTypes } from "@medusajs/types"
 import { Button, IconButton } from "@medusajs/ui"
-import { PlusMini, XCircle } from "@medusajs/icons"
+import { XCircle, Trash } from "@medusajs/icons"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import Thumbnail from "@modules/products/components/thumbnail"
 import { usePathname } from "next/navigation"
-import { Fragment, useEffect, useRef, useState } from "react"
+import { Fragment, useCallback, useEffect, useRef, useState } from "react"
+import { useCompare, MIN_COMPARED_PRODUCTS } from "@lib/context/compare-context"
+import CompareSlot, { compareSlotStyles } from "./components/compare-slot"
 
-const CompareDropdown = ({
-  compare: compareState,
-}: {
-  compare?: HttpTypes.StoreCart | null
-}) => {
-  const [activeTimer, setActiveTimer] = useState<NodeJS.Timer | undefined>(
-    undefined
-  )
+const CompareDropdown = () => {
+  const { comparedProducts = [], removeProduct, clearProducts } = useCompare()
+  const timerRef = useRef<NodeJS.Timeout | null>(null)
   const [compareDropdownOpen, setCompareDropdownOpen] = useState(false)
 
-  const open = () => setCompareDropdownOpen(true)
-  const close = () => setCompareDropdownOpen(false)
-
-  const totalItems =
-    compareState?.items?.reduce((acc, item) => {
-      return acc + item.quantity
-    }, 0) || 0
-
-  const itemRef = useRef<number>(totalItems || 0)
-
-  const timedOpen = () => {
-    open()
-
-    const timer = setTimeout(close, 5000)
-
-    setActiveTimer(timer)
-  }
-
-  const openAndCancel = () => {
-    if (activeTimer) {
-      clearTimeout(activeTimer)
-    }
-
-    open()
-  }
-
-  // Clean up the timer when the component unmounts
-  useEffect(() => {
-    return () => {
-      if (activeTimer) {
-        clearTimeout(activeTimer)
-      }
-    }
-  }, [activeTimer])
-
+  const totalComparedProducts = comparedProducts.length
+  const previousComparedProductsCountRef = useRef<number>(totalComparedProducts)
   const pathname = usePathname()
 
-  // open compare dropdown when modifying the compare items, but only if we're not on the compare page
+  const clearActiveTimer = useCallback(() => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current)
+      timerRef.current = null
+    }
+  }, [])
+
+  const open = useCallback(() => setCompareDropdownOpen(true), [])
+  const close = useCallback(() => setCompareDropdownOpen(false), [])
+
+  const timedOpen = useCallback(() => {
+    open()
+    clearActiveTimer()
+    timerRef.current = setTimeout(close, 2000)
+  }, [open, close, clearActiveTimer])
+
+  const openAndCancel = useCallback(() => {
+    clearActiveTimer()
+    open()
+  }, [clearActiveTimer, open])
+
   useEffect(() => {
-    if (itemRef.current !== totalItems && !pathname.includes("/compare")) {
+    return clearActiveTimer
+  }, [clearActiveTimer])
+
+  useEffect(() => {
+    if (
+      previousComparedProductsCountRef.current !== totalComparedProducts &&
+      !pathname.includes("/compare")
+    ) {
       timedOpen()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [totalItems, itemRef.current])
+    previousComparedProductsCountRef.current = totalComparedProducts
+  }, [totalComparedProducts, pathname, timedOpen])
 
   return (
     <div
       className="h-full z-50"
       onMouseEnter={openAndCancel}
-      //onMouseLeave={close}
+      onMouseLeave={close}
     >
       <Popover className="relative h-full">
         <PopoverButton className="h-full">
@@ -81,7 +71,7 @@ const CompareDropdown = ({
             className="hover:text-ui-fg-base"
             href="/compare"
             data-testid="nav-compare-link"
-          >{`Compare (${totalItems})`}</LocalizedClientLink>
+          >{`Compare (${totalComparedProducts})`}</LocalizedClientLink>
         </PopoverButton>
         <Transition
           show={compareDropdownOpen}
@@ -95,76 +85,94 @@ const CompareDropdown = ({
         >
           <PopoverPanel
             static
-            className="hidden small:block absolute top-[calc(100%+1px)] right-0 bg-white border-x border-b border-gray-200 w-[420px] text-ui-fg-base"
+            className="hidden small:block absolute top-[calc(100%+1px)] right-0 bg-white border-x border-b border-gray-200 w-auto text-ui-fg-base"
             data-testid="nav-compare-dropdown"
           >
-            <div className="p-4 flex items-center justify-center">
-              <h3 className="text-large-semi">Compare</h3>
+            <div className="p-4 relative">
+              <h3 className="text-large-semi text-center">Compare</h3>
+              {totalComparedProducts >= MIN_COMPARED_PRODUCTS && (
+                <IconButton
+                  variant="transparent"
+                  className="transition-all duration-300 ease-in-out absolute top-1/2 right-4 -translate-y-1/2 hover:text-red-600 hover:bg-gray-300"
+                  onClick={clearProducts}
+                  data-testid="clear-all-compare-product-button"
+                  title="Clear compared products list"
+                >
+                  <Trash />
+                </IconButton>
+              )}
             </div>
-            {compareState && compareState.items?.length ? (
-              <>
-                <div className="overflow-y-scroll max-h-[402px] px-4 grid grid-cols-4 gap-8 no-scrollbar p-px">
-                  {compareState.items
-                    .sort((a, b) => {
-                      return (a.created_at ?? "") > (b.created_at ?? "")
-                        ? -1
-                        : 1
-                    })
-                    .map((item) => (
-                      <div
-                        className="grid grid-cols-[122px_1fr] gap-x-4 relative"
-                        key={item.id}
-                        data-testid="compare-item"
-                      >
-                        <LocalizedClientLink
-                          href={`/products/${item.product_handle}`}
-                          className="w-24"
-                        >
-                          <Thumbnail
-                            thumbnail={item.thumbnail}
-                            images={item.variant?.product?.images}
-                            size="square"
-                          />
-                        </LocalizedClientLink>
-                        <IconButton
-                          variant="transparent"
-                          className="absolute top-0 right-[-24px] hover:bg-gray-300"
-                        >
-                          <XCircle />
-                        </IconButton>
-                      </div>
-                    ))}
-                </div>
-                <div className="p-4 flex flex-col gap-y-4 text-small-regular">
-                  <LocalizedClientLink href="/compare" passHref>
-                    <Button
-                      className="w-full"
-                      size="large"
-                      data-testid="go-to-compare-button"
+            <div className="overflow-y-scroll max-h-[402px] px-4 flex flex-row gap-4 no-scrollbar p-px">
+              {totalComparedProducts > 0 ? (
+                <>
+                  {comparedProducts.map((product) => (
+                    <div
+                      className="w-[122px] relative transition-all duration-300 ease-in-out"
+                      key={product.id}
+                      data-testid="compare-product-{product.handle}"
                     >
-                      Go to compare
-                    </Button>
-                  </LocalizedClientLink>
+                      <LocalizedClientLink
+                        href={`/products/${product.handle}`}
+                        className="w-24"
+                      >
+                        <Thumbnail
+                          thumbnail={product.thumbnail}
+                          size="square"
+                        />
+                      </LocalizedClientLink>
+                      <IconButton
+                        variant="transparent"
+                        className="absolute top-0 right-0 hover:bg-gray-300 transition-all duration-300 ease-in-out"
+                        onClick={() => removeProduct(product.id)}
+                        data-testid="clear-compare-product-{product.handle}-button"
+                      >
+                        <XCircle />
+                      </IconButton>
+                    </div>
+                  ))}
+                  {totalComparedProducts === 1 && (
+                    <CompareSlot type="placeholder" />
+                  )}
+                </>
+              ) : (
+                <div className={compareSlotStyles.container}>
+                  {[...Array(2)].map((_, index) => (
+                    <CompareSlot key={`empty-${index}`} type="empty" />
+                  ))}
                 </div>
-              </>
-            ) : (
-              <div>
-                <div className="flex py-16 flex-col gap-y-4 items-center justify-center">
-                  <div className="bg-gray-900 text-small-regular flex items-center justify-center w-6 h-6 rounded-full text-white">
-                    <span>0</span>
-                  </div>
-                  <span>Your compare list is empty.</span>
-                  <div>
-                    <LocalizedClientLink href="/store">
-                      <>
-                        <span className="sr-only">Go to all products page</span>
-                        <Button onClick={close}>Explore products</Button>
-                      </>
-                    </LocalizedClientLink>
-                  </div>
-                </div>
-              </div>
-            )}
+              )}
+            </div>
+            <div className="flex flex-col gap-y-4 px-4 py-4 text-small-regular">
+              <LocalizedClientLink
+                href={
+                  totalComparedProducts >= MIN_COMPARED_PRODUCTS
+                    ? "/compare"
+                    : "/compare/not-found"
+                }
+                passHref
+              >
+                <Button
+                  className={`w-full transition-all duration-300 ease-in-out transform ${
+                    totalComparedProducts < MIN_COMPARED_PRODUCTS
+                      ? "opacity-80 hover:opacity-90"
+                      : "opacity-100 hover:scale-[1.02]"
+                  }`}
+                  size="large"
+                  disabled={totalComparedProducts < MIN_COMPARED_PRODUCTS}
+                  data-testid="go-to-compare-button"
+                >
+                  {totalComparedProducts < MIN_COMPARED_PRODUCTS
+                    ? `Add ${
+                        MIN_COMPARED_PRODUCTS - totalComparedProducts
+                      } more product${
+                        MIN_COMPARED_PRODUCTS - totalComparedProducts === 1
+                          ? ""
+                          : "s"
+                      } to compare`
+                    : "Go to compare"}
+                </Button>
+              </LocalizedClientLink>
+            </div>
           </PopoverPanel>
         </Transition>
       </Popover>

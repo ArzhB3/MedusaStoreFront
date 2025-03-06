@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file://C%3A/code/my-medusa-store-storefront/src/app/%5BcountryCode%5D/%28main%29/cart/not-found.tsx"],"sourcesContent":["import { Metadata } from \"next\"\r\n\r\nimport InteractiveLink from \"@modules/common/components/interactive-link\"\r\n\r\nexport const metadata: Metadata = {\r\n  title: \"404\",\r\n  description: \"Something went wrong\",\r\n}\r\n\r\nexport default function NotFound() {\r\n  return (\r\n    <div className=\"flex flex-col items-center justify-center min-h-[calc(100vh-64px)]\">\r\n      <h1 className=\"text-2xl-semi text-ui-fg-base\">Page not found</h1>\r\n      <p className=\"text-small-regular text-ui-fg-base\">\r\n        The cart you tried to access does not exist. Clear your cookies and try\r\n        again.\r\n      </p>\r\n      <InteractiveLink href=\"/\">Go to frontpage</InteractiveLink>\r\n    </div>\r\n  )\r\n}\r\n"],"names":[],"mappings":";;;;;AAEA;;;AAEO,MAAM,WAAqB;IAChC,OAAO;IACP,aAAa;AACf;AAEe,SAAS;IACtB,qBACE,8OAAC;QAAI,WAAU;;0BACb,8OAAC;gBAAG,WAAU;0BAAgC;;;;;;0BAC9C,8OAAC;gBAAE,WAAU;0BAAqC;;;;;;0BAIlD,8OAAC,uKAAA,CAAA,UAAe;gBAAC,MAAK;0BAAI;;;;;;;;;;;;AAGhC"}},
-    {"offset": {"line": 54, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
-}

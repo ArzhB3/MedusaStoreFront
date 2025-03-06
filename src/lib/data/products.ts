@@ -28,7 +28,7 @@ export const listProducts = async ({
 
   const limit = queryParams?.limit || 12
   const _pageParam = Math.max(pageParam, 1)
-  const offset = (_pageParam === 1) ? 0 : (_pageParam - 1) * limit;
+  const offset = _pageParam === 1 ? 0 : (_pageParam - 1) * limit
 
   let region: HttpTypes.StoreRegion | undefined | null
 
@@ -132,5 +132,42 @@ export const listProductsWithSort = async ({
     },
     nextPage,
     queryParams,
+  }
+}
+
+export const getProductById = async (
+  id: string,
+  options?: { forceRevalidate?: boolean }
+): Promise<HttpTypes.StoreProduct | null> => {
+  if (!id) {
+    return null
+  }
+
+  const headers = await getAuthHeaders()
+
+  const cacheSettings = options?.forceRevalidate
+    ? {
+        revalidate: 0,
+        tags: [`product-${id}`],
+      }
+    : {
+        revalidate: 3600,
+        tags: [`product-${id}`],
+      }
+
+  try {
+    const { product } = await sdk.client.fetch<{
+      product: HttpTypes.StoreProduct
+    }>(`/store/products/${id}`, {
+      method: "GET",
+      headers,
+      next: cacheSettings,
+      cache: options?.forceRevalidate ? "no-store" : "force-cache",
+    })
+
+    return product
+  } catch (error) {
+    console.error(`Error fetching product with ID: ${id}`, error)
+    return null
   }
 }
