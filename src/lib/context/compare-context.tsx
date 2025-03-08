@@ -17,10 +17,9 @@ const isClient = () => typeof window !== "undefined"
 
 type CompareContextType = {
   comparedProducts: ComparedProduct[]
-  addProduct: (product: ComparedProduct) => void
+  toggleProduct: (product: ComparedProduct) => void
   removeProduct: (productId: string) => void
   clearProducts: () => void
-  toggleProduct: (product: ComparedProduct) => void
 }
 
 const CompareContext = createContext<CompareContextType | undefined>(undefined)
@@ -72,35 +71,6 @@ export const CompareProvider = ({ children }: { children: ReactNode }) => {
     return () => window.removeEventListener("storage", handleStorageChange)
   }, [])
 
-  const addProduct = useCallback((product: ComparedProduct) => {
-    if (!product.id) throw new Error("Missing product ID")
-
-    setComparedProducts((currentComparedProducts) => {
-      if (currentComparedProducts.length >= MAX_COMPARED_PRODUCTS) {
-        throw new Error(
-          `Cannot add more than ${MAX_COMPARED_PRODUCTS} products`
-        )
-      }
-
-      if (currentComparedProducts.some((p) => p.id === product.id)) {
-        throw new Error("Product already in compare list")
-      }
-
-      return [...currentComparedProducts, product]
-    })
-  }, [])
-
-  const removeProduct = useCallback((productId: string) => {
-    if (!productId) throw new Error("Missing product ID")
-    setComparedProducts((currentComparedProducts) =>
-      currentComparedProducts.filter((p) => p.id !== productId)
-    )
-  }, [])
-
-  const clearProducts = useCallback(() => {
-    setComparedProducts([])
-  }, [])
-
   const toggleProduct = useCallback((product: ComparedProduct) => {
     if (!product.id) throw new Error("Missing product ID")
 
@@ -121,12 +91,22 @@ export const CompareProvider = ({ children }: { children: ReactNode }) => {
     })
   }, [])
 
+  const removeProduct = useCallback((productId: string) => {
+    if (!productId) throw new Error("Missing product ID")
+    setComparedProducts((currentComparedProducts) =>
+      currentComparedProducts.filter((p) => p.id !== productId)
+    )
+  }, [])
+
+  const clearProducts = useCallback(() => {
+    setComparedProducts([])
+  }, [])
+
   const value = {
     comparedProducts,
-    addProduct,
+    toggleProduct,
     removeProduct,
     clearProducts,
-    toggleProduct,
   }
 
   return (
