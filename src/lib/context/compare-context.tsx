@@ -8,16 +8,16 @@ import {
   ReactNode,
   useCallback,
 } from "react"
-import { ComparedProduct } from "types/global"
+import { HttpTypes } from "@medusajs/types"
 
-export const MAX_COMPARED_PRODUCTS = 3
 export const MIN_COMPARED_PRODUCTS = 2
+export const MAX_COMPARED_PRODUCTS = 3
 const COMPARED_PRODUCTS_KEY = "compared_products_list"
 const isClient = () => typeof window !== "undefined"
 
 type CompareContextType = {
-  comparedProducts: ComparedProduct[]
-  toggleProduct: (product: ComparedProduct) => void
+  comparedProducts: HttpTypes.StoreProduct[]
+  toggleProduct: (product: HttpTypes.StoreProduct) => void
   removeProduct: (productId: string) => void
   clearProducts: () => void
 }
@@ -25,9 +25,9 @@ type CompareContextType = {
 const CompareContext = createContext<CompareContextType | undefined>(undefined)
 
 export const CompareProvider = ({ children }: { children: ReactNode }) => {
-  const [comparedProducts, setComparedProducts] = useState<ComparedProduct[]>(
-    []
-  )
+  const [comparedProducts, setComparedProducts] = useState<
+    HttpTypes.StoreProduct[]
+  >([])
 
   useEffect(() => {
     if (!isClient()) return
@@ -71,7 +71,7 @@ export const CompareProvider = ({ children }: { children: ReactNode }) => {
     return () => window.removeEventListener("storage", handleStorageChange)
   }, [])
 
-  const toggleProduct = useCallback((product: ComparedProduct) => {
+  const toggleProduct = useCallback((product: HttpTypes.StoreProduct) => {
     if (!product.id) throw new Error("Missing product ID")
 
     setComparedProducts((currentComparedProducts) => {
