@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { notFound, useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { useCompare } from "@lib/context/compare-context"
 import { getProductById } from "@lib/data/products"
 import { HttpTypes } from "@medusajs/types"
@@ -9,6 +9,7 @@ import { HttpTypes } from "@medusajs/types"
 import RemoveProductPrompt from "@modules/compare/components/remove-product-prompt"
 import ProductHeader from "@modules/compare/components/product-header"
 import ProductAttributes from "@modules/compare/components/product-attributes"
+import EmptyCompareMessage from "../components/empty-compare-message"
 
 interface CompareTemplateProps {
   initialProducts?: HttpTypes.StoreProduct[]
@@ -30,7 +31,7 @@ const CompareTemplate = ({ initialProducts }: CompareTemplateProps) => {
         !comparedProductsFromContext ||
         comparedProductsFromContext.length < 2
       ) {
-        return notFound()
+        return
       }
 
       try {
@@ -43,10 +44,6 @@ const CompareTemplate = ({ initialProducts }: CompareTemplateProps) => {
           Boolean
         ) as HttpTypes.StoreProduct[]
 
-        if (validProducts.length < 2) {
-          return notFound()
-        }
-
         setProducts(validProducts)
       } catch (error) {
         console.error("Error fetching product details:", error)
@@ -57,12 +54,6 @@ const CompareTemplate = ({ initialProducts }: CompareTemplateProps) => {
       fetchProducts()
     }
   }, [comparedProductsFromContext, initialProducts])
-
-  useEffect(() => {
-    if (initialProducts && initialProducts.length < 2) {
-      notFound()
-    }
-  }, [initialProducts])
 
   const handleRemoveProduct = (productId: string) => {
     if (products.length <= 2) {
@@ -88,39 +79,45 @@ const CompareTemplate = ({ initialProducts }: CompareTemplateProps) => {
     setShowConfirmDialog(false)
   }
 
-  if (products.length < 2) {
-    return null
-  }
-
   return (
     <div className="py-6">
-      <div className="content-container">
-        <h1 className="text-2xl-semi text-ui-fg-base mb-8">Compare Products</h1>
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse">
-            <thead>
-              <tr>
-                <th className="p-4 border text-left bg-gray-50 min-w-[180px]"></th>
-                {products.map((product) => (
-                  <ProductHeader
-                    key={product.id}
-                    product={product}
-                    removeProduct={handleRemoveProduct}
-                  />
-                ))}
-              </tr>
-            </thead>
-            <ProductAttributes products={products} />
-          </table>
-        </div>
-      </div>
+      <div className="content-container" data-testid="compare-container">
+        {comparedProductsFromContext.length >= 2 ? (
+          <>
+            <h1 className="text-2xl-semi text-ui-fg-base mb-8">
+              Compare Products
+            </h1>
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse">
+                <thead>
+                  <tr>
+                    <th className="p-4 border text-left bg-gray-50 min-w-[180px]"></th>
+                    {products.map((product) => (
+                      <ProductHeader
+                        key={product.id}
+                        product={product}
+                        removeProduct={handleRemoveProduct}
+                      />
+                    ))}
+                  </tr>
+                </thead>
+                <ProductAttributes products={products} />
+              </table>
+            </div>
 
-      <RemoveProductPrompt
-        isOpen={showConfirmDialog}
-        onOpenChange={setShowConfirmDialog}
-        onConfirm={confirmRemoveProduct}
-        onCancel={cancelRemoveProduct}
-      />
+            <RemoveProductPrompt
+              isOpen={showConfirmDialog}
+              onOpenChange={setShowConfirmDialog}
+              onConfirm={confirmRemoveProduct}
+              onCancel={cancelRemoveProduct}
+            />
+          </>
+        ) : (
+          <div>
+            <EmptyCompareMessage />
+          </div>
+        )}
+      </div>
     </div>
   )
 }

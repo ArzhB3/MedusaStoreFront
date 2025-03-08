@@ -1,5 +1,5 @@
 import repeat from "@lib/util/repeat"
-import SkeletonCompareProductCard from "@modules/skeletons/components/skeleton-compare-product-card"
+import SkeletonCompareProduct from "@modules/skeletons/components/skeleton-compare-product"
 
 const SkeletonComparePage = () => {
   return (
@@ -9,7 +9,7 @@ const SkeletonComparePage = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {repeat(3).map((_, index) => (
-            <SkeletonCompareProductCard key={index} />
+            <SkeletonCompareProduct key={index} />
           ))}
         </div>
       </div>

@@ -1,6 +1,6 @@
 import React from "react"
 
-const SkeletonCompareProductCard = () => {
+const SkeletonCompareProduct = () => {
   return (
     <div className="bg-white p-4 rounded border border-gray-200 animate-pulse">
       <div className="aspect-square w-full bg-gray-100 mb-4" />
@@ -24,4 +24,4 @@ const SkeletonCompareProductCard = () => {
   )
 }
 
-export default SkeletonCompareProductCard
+export default SkeletonCompareProduct
