@@ -16,8 +16,7 @@ interface CompareTemplateProps {
 }
 
 const CompareTemplate = ({ initialProducts }: CompareTemplateProps) => {
-  const { comparedProducts: comparedProductsFromContext, removeProduct } =
-    useCompare()
+  const { comparedProducts, removeProduct } = useCompare()
   const [products, setProducts] = useState<HttpTypes.StoreProduct[]>(
     initialProducts || []
   )
@@ -27,15 +26,12 @@ const CompareTemplate = ({ initialProducts }: CompareTemplateProps) => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      if (
-        !comparedProductsFromContext ||
-        comparedProductsFromContext.length < 2
-      ) {
+      if (!comparedProducts || comparedProducts.length < 2) {
         return
       }
 
       try {
-        const productPromises = comparedProductsFromContext
+        const productPromises = comparedProducts
           .map((p) => p.id)
           .map((id) => getProductById(id, { forceRevalidate: true }))
 
@@ -53,7 +49,7 @@ const CompareTemplate = ({ initialProducts }: CompareTemplateProps) => {
     if (!initialProducts) {
       fetchProducts()
     }
-  }, [comparedProductsFromContext, initialProducts])
+  }, [comparedProducts, initialProducts])
 
   const handleRemoveProduct = (productId: string) => {
     if (products.length <= 2) {
@@ -82,7 +78,7 @@ const CompareTemplate = ({ initialProducts }: CompareTemplateProps) => {
   return (
     <div className="py-6">
       <div className="content-container" data-testid="compare-container">
-        {comparedProductsFromContext.length >= 2 ? (
+        {comparedProducts.length >= 2 ? (
           <>
             <h1 className="text-2xl-semi text-ui-fg-base mb-8">
               Compare Products

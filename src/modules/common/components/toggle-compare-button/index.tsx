@@ -11,8 +11,7 @@ type ToggleCompareButtonProps = {
 }
 
 function ToggleCompareButton({ product }: ToggleCompareButtonProps) {
-  const { toggleProduct: toggleComparedProduct, comparedProducts } =
-    useCompare()
+  const { comparedProducts, toggleProduct } = useCompare()
   const isCompared = comparedProducts.some((p) => p.id === product.id)
   const isComparedFull =
     comparedProducts.length >= MAX_COMPARED_PRODUCTS && !isCompared
@@ -22,7 +21,7 @@ function ToggleCompareButton({ product }: ToggleCompareButtonProps) {
       e.preventDefault()
       if (isComparedFull) return
 
-      toggleComparedProduct(product)
+      toggleProduct(product)
 
       isCompared
         ? toast.info("Compared product removed", {
@@ -38,7 +37,7 @@ function ToggleCompareButton({ product }: ToggleCompareButtonProps) {
             duration: 2000,
           })
     },
-    [isComparedFull, product, isCompared, toggleComparedProduct]
+    [isComparedFull, product, isCompared, toggleProduct]
   )
 
   const buttonStyles = `group flex rounded-md transition-all duration-300 pr-2 pl-1 ${
