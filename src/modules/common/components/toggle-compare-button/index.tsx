@@ -5,19 +5,13 @@ import { HttpTypes } from "@medusajs/types"
 import { Button, toast } from "@medusajs/ui"
 import { GridList, Plus, Check } from "@medusajs/icons"
 import { useCompare, MAX_COMPARED_PRODUCTS } from "@lib/context/compare-context"
-import { ComparedProduct } from "types/global"
 
-interface ToggleCompareButtonProps {
+type ToggleCompareButtonProps = {
   product: HttpTypes.StoreProduct
-  className?: string
 }
 
-function ToggleCompareButton({
-  product,
-  className = "",
-}: ToggleCompareButtonProps) {
-  const { toggleProduct: toggleComparedProduct, comparedProducts } =
-    useCompare()
+function ToggleCompareButton({ product }: ToggleCompareButtonProps) {
+  const { comparedProducts, toggleProduct } = useCompare()
   const isCompared = comparedProducts.some((p) => p.id === product.id)
   const isComparedFull =
     comparedProducts.length >= MAX_COMPARED_PRODUCTS && !isCompared
@@ -27,13 +21,7 @@ function ToggleCompareButton({
       e.preventDefault()
       if (isComparedFull) return
 
-      const comparedProduct: ComparedProduct = {
-        id: product.id,
-        handle: product.handle,
-        thumbnail: product.thumbnail,
-        isCompared: !isCompared,
-      }
-      toggleComparedProduct(comparedProduct)
+      toggleProduct(product)
 
       isCompared
         ? toast.info("Compared product removed", {
@@ -49,7 +37,7 @@ function ToggleCompareButton({
             duration: 2000,
           })
     },
-    [isComparedFull, product, isCompared, toggleComparedProduct]
+    [isComparedFull, product, isCompared, toggleProduct]
   )
 
   const buttonStyles = `group flex rounded-md transition-all duration-300 pr-2 pl-1 ${
@@ -58,7 +46,7 @@ function ToggleCompareButton({
       : isComparedFull
       ? "bg-gray-300 border border-gray-400 cursor-not-allowed"
       : "bg-gray hover:bg-gray-400"
-  } ${className}`
+  }`
 
   const textStyles = `max-w-0 overflow-hidden text-sm whitespace-nowrap transition-all duration-300 group-hover:max-w-[200px] group-hover:pl-2 ${
     isComparedFull ? "text-gray-600" : "text-white"

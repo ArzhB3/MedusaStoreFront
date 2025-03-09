@@ -21,8 +21,9 @@ const RemoveProductPrompt = ({
             Remove product from comparison
           </Prompt.Title>
           <Prompt.Description className="text-ui-fg-subtle mt-2 text-justify">
-            If you remove this product, you will be redirected to the store page
-            since comparison requires at least two products.
+            Since product comparison requires at least two products, removing
+            this item will return you to the store with your remaining
+            selection.
           </Prompt.Description>
         </Prompt.Header>
         <Prompt.Footer className="flex justify-between">

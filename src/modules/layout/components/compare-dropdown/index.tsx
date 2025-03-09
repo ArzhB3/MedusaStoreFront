@@ -20,9 +20,13 @@ import { useCompare, MIN_COMPARED_PRODUCTS } from "@lib/context/compare-context"
 import CompareSlot, { compareSlotStyles } from "./components/compare-slot"
 
 const CompareDropdown = () => {
-  const { comparedProducts = [], removeProduct, clearProducts } = useCompare()
-  const timerRef = useRef<NodeJS.Timeout | null>(null)
+  const {
+    comparedProducts = [],
+    removeProduct,
+    removeAllProducts,
+  } = useCompare()
   const [compareDropdownOpen, setCompareDropdownOpen] = useState(false)
+  const timerRef = useRef<NodeJS.Timeout | null>(null)
 
   const totalComparedProducts = comparedProducts.length
   const pathname = usePathname()
@@ -84,7 +88,7 @@ const CompareDropdown = () => {
                 <IconButton
                   variant="transparent"
                   className="transition-all duration-300 ease-in-out absolute top-1/2 right-4 -translate-y-1/2 hover:text-red-600 hover:bg-gray-300"
-                  onClick={clearProducts}
+                  onClick={removeAllProducts}
                   data-testid="clear-all-compare-product-button"
                   title="Clear all"
                 >
