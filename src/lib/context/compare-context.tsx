@@ -138,7 +138,7 @@ export const CompareProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {
       console.error("Error refreshing product data:", error)
     }
-  }, [comparedProducts])
+  }, [comparedProducts.map((p) => p.id).join(",")])
 
   // ------------------------------ Local Storage Management ------------------------------ //
 
