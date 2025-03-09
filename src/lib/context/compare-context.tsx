@@ -73,9 +73,18 @@ export const CompareProvider = ({ children }: { children: ReactNode }) => {
    */
   const removeProduct = useCallback((productId: string) => {
     if (!productId) throw new Error("Missing product ID")
-    setComparedProducts((currentComparedProducts) =>
-      currentComparedProducts.filter((p) => p.id !== productId)
-    )
+
+    setComparedProducts((currentComparedProducts) => {
+      const updatedProducts = currentComparedProducts.filter(
+        (p) => p.id !== productId
+      )
+
+      if (updatedProducts.length === 0) {
+        setLastRefreshTimestamp(null)
+      }
+
+      return updatedProducts
+    })
   }, [])
 
   /**
@@ -83,6 +92,7 @@ export const CompareProvider = ({ children }: { children: ReactNode }) => {
    */
   const removeAllProducts = useCallback(() => {
     setComparedProducts([])
+    setLastRefreshTimestamp(null)
   }, [])
 
   /*
@@ -161,6 +171,11 @@ export const CompareProvider = ({ children }: { children: ReactNode }) => {
    */
   useEffect(() => {
     if (!isClient() || !initialLoadComplete) return
+
+    if (comparedProducts.length === 0) {
+      localStorage.removeItem(COMPARED_PRODUCTS_KEY)
+      return
+    }
 
     try {
       const comparedProductstoStore: ComparedProductsStorage = {
