@@ -1,44 +1,29 @@
 "use client"
 
 import { useCallback, memo } from "react"
+
 import { HttpTypes } from "@medusajs/types"
-import { Button, toast } from "@medusajs/ui"
+import { Button, toast, ToasterPosition } from "@medusajs/ui"
 import { GridList, Plus, Check } from "@medusajs/icons"
-import { useCompare, MAX_COMPARED_PRODUCTS } from "@lib/context/compare-context"
+
+import { useCompareContext } from "@lib/context/compare-context"
+import { DEFAULT_TOAST } from "@lib/constants/global-constants"
+import {
+  COMPARE_TOAST,
+  MAX_COMPARED_PRODUCTS,
+} from "@lib/constants/compare-constants"
 
 type ToggleCompareButtonProps = {
   product: HttpTypes.StoreProduct
 }
 
 function ToggleCompareButton({ product }: ToggleCompareButtonProps) {
-  const { comparedProducts, toggleProduct } = useCompare()
-  const isCompared = comparedProducts.some((p) => p.id === product.id)
+  const { comparedProducts, toggleProduct, isProductCompared } =
+    useCompareContext()
+
+  const isCompared = isProductCompared(product.id)
   const isComparedFull =
     comparedProducts.length >= MAX_COMPARED_PRODUCTS && !isCompared
-
-  const handleSubmit = useCallback(
-    (e: React.FormEvent) => {
-      e.preventDefault()
-      if (isComparedFull) return
-
-      toggleProduct(product)
-
-      isCompared
-        ? toast.info("Compared product removed", {
-            description: `${product.title} has been removed from the comparison list`,
-            dismissable: true,
-            position: "top-right",
-            duration: 2000,
-          })
-        : toast.success("Compared product added", {
-            description: `${product.title} has been added to the comparison list`,
-            dismissable: true,
-            position: "top-right",
-            duration: 2000,
-          })
-    },
-    [isComparedFull, product, isCompared, toggleProduct]
-  )
 
   const buttonStyles = `group flex rounded-md transition-all duration-300 pr-2 pl-1 ${
     isCompared
@@ -48,15 +33,39 @@ function ToggleCompareButton({ product }: ToggleCompareButtonProps) {
       : "bg-gray hover:bg-gray-400"
   }`
 
-  const textStyles = `max-w-0 overflow-hidden text-sm whitespace-nowrap transition-all duration-300 group-hover:max-w-[200px] group-hover:pl-2 ${
-    isComparedFull ? "text-gray-600" : "text-white"
-  }`
-
   const buttonText = isCompared
     ? "Already in compare list"
     : isComparedFull
     ? "Compare list full"
     : "Add to compare"
+
+  const textStyles = `max-w-0 overflow-hidden text-sm whitespace-nowrap transition-all duration-300 group-hover:max-w-[200px] group-hover:pl-2 ${
+    isComparedFull ? "text-gray-600" : "text-white"
+  }`
+
+  const handleSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault()
+      if (isComparedFull) return
+
+      toggleProduct(product)
+
+      isCompared
+        ? toast.info(COMPARE_TOAST.REMOVED.TITLE, {
+            description: COMPARE_TOAST.REMOVED.DESCRIPTION(product.title),
+            dismissable: DEFAULT_TOAST.DISMISSABLE,
+            position: DEFAULT_TOAST.POSITION as ToasterPosition,
+            duration: DEFAULT_TOAST.DURATION,
+          })
+        : toast.success(COMPARE_TOAST.ADDED.TITLE, {
+            description: COMPARE_TOAST.ADDED.DESCRIPTION(product.title),
+            dismissable: DEFAULT_TOAST.DISMISSABLE,
+            position: DEFAULT_TOAST.POSITION as ToasterPosition,
+            duration: DEFAULT_TOAST.DURATION,
+          })
+    },
+    [isComparedFull, product, isCompared, toggleProduct]
+  )
 
   return (
     <form onSubmit={handleSubmit}>

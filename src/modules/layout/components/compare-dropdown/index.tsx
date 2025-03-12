@@ -15,7 +15,8 @@ import { XCircle, Trash } from "@medusajs/icons"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import Thumbnail from "@modules/products/components/thumbnail"
 
-import { useCompare, MIN_COMPARED_PRODUCTS } from "@lib/context/compare-context"
+import { useCompareContext } from "@lib/context/compare-context"
+import { MIN_COMPARED_PRODUCTS } from "@lib/constants/compare-constants"
 
 import CompareSlot, { compareSlotStyles } from "./components/compare-slot"
 
@@ -24,7 +25,7 @@ const CompareDropdown = () => {
     comparedProducts = [],
     removeProduct,
     removeAllProducts,
-  } = useCompare()
+  } = useCompareContext()
   const [compareDropdownOpen, setCompareDropdownOpen] = useState(false)
   const timerRef = useRef<NodeJS.Timeout | null>(null)
 
