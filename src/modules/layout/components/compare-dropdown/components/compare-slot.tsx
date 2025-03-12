@@ -1,5 +1,23 @@
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
-import { ReactNode, memo } from "react"
+import { memo } from "react"
+
+/**
+ * Defines the possible display modes for a compare slot.
+ * - empty: Initial empty state, indicates no products in comparison yet
+ * - placeholder: Additional slot after at least one product is selected
+ */
+type CompareSlotType = "empty" | "placeholder"
+
+type CompareSlotProps = {
+  type: CompareSlotType
+  href?: string
+  className?: string
+}
+
+const compareSlotMessages: Record<CompareSlotType, string> = {
+  empty: "Add product to compare",
+  placeholder: "Add another product to compare",
+}
 
 export const compareSlotStyles = {
   wrapper:
@@ -7,31 +25,11 @@ export const compareSlotStyles = {
   container: "flex flex-row gap-4",
 }
 
-type CompareSlotType = "empty" | "placeholder"
-
-interface CompareSlotProps {
-  type: CompareSlotType
-  href?: string
-  className?: string
-  children?: ReactNode
-}
-
 const CompareSlot = memo(
-  ({
-    type = "empty",
-    href = "/store",
-    className = "",
-    children,
-  }: CompareSlotProps) => (
+  ({ type, href = "/store", className = "" }: CompareSlotProps) => (
     <LocalizedClientLink href={href}>
       <div className={`${compareSlotStyles.wrapper} ${className}`}>
-        {children || (
-          <span className="text-xs">
-            {type === "placeholder"
-              ? "Add another product to compare"
-              : "Add product to compare"}
-          </span>
-        )}
+        <span className="text-xs">{compareSlotMessages[type]}</span>
       </div>
     </LocalizedClientLink>
   )
