@@ -1,4 +1,7 @@
 import React, { Suspense } from "react"
+import { notFound } from "next/navigation"
+
+import { HttpTypes } from "@medusajs/types"
 
 import ImageGallery from "@modules/products/components/image-gallery"
 import ProductActions from "@modules/products/components/product-actions"
@@ -7,9 +10,9 @@ import ProductTabs from "@modules/products/components/product-tabs"
 import RelatedProducts from "@modules/products/components/related-products"
 import ProductInfo from "@modules/products/templates/product-info"
 import SkeletonRelatedProducts from "@modules/skeletons/templates/skeleton-related-products"
-import { notFound } from "next/navigation"
+import ToggleCompareButton from "@modules/common/components/toggle-compare-button"
+
 import ProductActionsWrapper from "./product-actions-wrapper"
-import { HttpTypes } from "@medusajs/types"
 
 type ProductTemplateProps = {
   product: HttpTypes.StoreProduct
@@ -35,6 +38,9 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
         <div className="flex flex-col small:sticky small:top-48 small:py-0 small:max-w-[300px] w-full py-8 gap-y-6">
           <ProductInfo product={product} />
           <ProductTabs product={product} />
+          <div className="flex justify-end w-full pr-1">
+            <ToggleCompareButton product={product} />
+          </div>
         </div>
         <div className="block w-full relative">
           <ImageGallery images={product?.images || []} />
