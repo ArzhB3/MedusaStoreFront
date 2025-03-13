@@ -10,13 +10,14 @@ import { Fragment, useCallback, useEffect, useRef, useState } from "react"
 import { usePathname } from "next/navigation"
 
 import { Button, IconButton } from "@medusajs/ui"
-import { XCircle, Trash } from "@medusajs/icons"
+import { XCircle, Trash, GridList } from "@medusajs/icons"
 
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import Thumbnail from "@modules/products/components/thumbnail"
 
 import { useCompareContext } from "@lib/context/compare-context"
 import { MIN_COMPARED_PRODUCTS } from "@lib/constants/compare-constants"
+import { DEFAULT_ICON_VERTICAL_POSITION } from "@lib/constants/global-constants"
 
 import CompareSlot, { compareSlotStyles } from "./components/compare-slot"
 
@@ -63,10 +64,13 @@ const CompareDropdown = () => {
       <Popover className="relative h-full">
         <PopoverButton className="h-full">
           <LocalizedClientLink
-            className="hover:text-ui-fg-base"
+            className="hover:text-ui-fg-base flex items-center gap-x-1"
             href="/compare"
             data-testid="nav-compare-link"
-          >{`Compare (${totalComparedProducts})`}</LocalizedClientLink>
+          >
+            <GridList className={DEFAULT_ICON_VERTICAL_POSITION} />
+            <span>{`(${totalComparedProducts})`}</span>
+          </LocalizedClientLink>
         </PopoverButton>
         <Transition
           show={compareDropdownOpen}
@@ -90,7 +94,7 @@ const CompareDropdown = () => {
                   variant="transparent"
                   className="transition-all duration-300 ease-in-out absolute top-1/2 right-4 -translate-y-1/2 hover:text-red-600 hover:bg-gray-300"
                   onClick={removeAllProducts}
-                  data-testid="clear-all-compare-product-button"
+                  data-testid="compared-products-clear-all-button"
                   title="Clear all"
                 >
                   <Trash />
@@ -119,7 +123,7 @@ const CompareDropdown = () => {
                         variant="transparent"
                         className="absolute top-0 right-0 hover:bg-gray-300 transition-all duration-300 ease-in-out"
                         onClick={() => removeProduct(product.id)}
-                        data-testid="clear-compare-product-{product.handle}-button"
+                        data-testid="compared-product-{product.handle}-clear-button"
                       >
                         <XCircle />
                       </IconButton>
@@ -147,7 +151,7 @@ const CompareDropdown = () => {
                   }`}
                   size="large"
                   disabled={totalComparedProducts < MIN_COMPARED_PRODUCTS}
-                  data-testid="go-to-compare-button"
+                  data-testid="compare-go-to-button"
                 >
                   {totalComparedProducts < MIN_COMPARED_PRODUCTS
                     ? `Add ${

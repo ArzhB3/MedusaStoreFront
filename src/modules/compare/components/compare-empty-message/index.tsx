@@ -2,11 +2,11 @@ import { Heading, Text } from "@medusajs/ui"
 
 import InteractiveLink from "@modules/common/components/interactive-link"
 
-const EmptyCompareMessage = () => {
+const CompareEmptyMessage = () => {
   return (
     <div
       className="py-48 px-2 flex flex-col justify-center items-start"
-      data-testid="empty-compare-message"
+      data-testid="compare-empty-message"
     >
       <Heading
         level="h1"
@@ -25,4 +25,4 @@ const EmptyCompareMessage = () => {
   )
 }
 
-export default EmptyCompareMessage
+export default CompareEmptyMessage

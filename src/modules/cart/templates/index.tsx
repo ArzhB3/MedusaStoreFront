@@ -1,6 +1,6 @@
 import ItemsTemplate from "./items"
 import Summary from "./summary"
-import EmptyCartMessage from "../components/empty-cart-message"
+import CartEmptyMessage from "../components/cart-empty-message"
 import SignInPrompt from "../components/sign-in-prompt"
 import Divider from "@modules/common/components/divider"
 import { HttpTypes } from "@medusajs/types"
@@ -40,7 +40,7 @@ const CartTemplate = ({
           </div>
         ) : (
           <div>
-            <EmptyCartMessage />
+            <CartEmptyMessage />
           </div>
         )}
       </div>

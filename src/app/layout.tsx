@@ -1,4 +1,4 @@
-import { Providers } from "@lib/providers"
+import { ProvidersWrapper } from "@lib/providers/wrapper"
 import { getBaseURL } from "@lib/util/env"
 import { Metadata } from "next"
 import "styles/globals.css"
@@ -11,9 +11,9 @@ export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en" data-mode="light">
       <body>
-        <Providers>
+        <ProvidersWrapper>
           <main className="relative">{props.children}</main>
-        </Providers>
+        </ProvidersWrapper>
       </body>
     </html>
   )

@@ -4,11 +4,11 @@ import type { Product } from "@medusajs/medusa"
 
 import { HttpTypes } from "@medusajs/types"
 
-type ProductAttributesProps = {
+type ComparedProductAttributesProps = {
   products: HttpTypes.StoreProduct[] | Product[]
 }
 
-interface ProductMetadata {
+interface ComparedProductMetadata {
   weight?: string
   material?: string
   country_of_origin?: string
@@ -26,13 +26,15 @@ interface AttributeConfig {
   getValue: (product: any) => ReactNode | string
 }
 
-const ProductAttributes = ({ products }: ProductAttributesProps) => {
-  const getMetadata = (product: any): ProductMetadata => {
+const ComparedProductAttributes = ({
+  products,
+}: ComparedProductAttributesProps) => {
+  const getMetadata = (product: any): ComparedProductMetadata => {
     if (!product) return {}
 
     if (product.metadata) return product.metadata
 
-    const metadata: ProductMetadata = {}
+    const metadata: ComparedProductMetadata = {}
 
     if (product.weight) metadata.weight = product.weight.toString()
     if (product.material) metadata.material = product.material
@@ -135,4 +137,4 @@ const ProductAttributes = ({ products }: ProductAttributesProps) => {
   )
 }
 
-export default ProductAttributes
+export default ComparedProductAttributes

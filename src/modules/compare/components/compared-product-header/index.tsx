@@ -9,12 +9,15 @@ import { XCircle } from "@medusajs/icons"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import Thumbnail from "@modules/products/components/thumbnail"
 
-type ProductHeaderProps = {
+type ComparedProductHeaderProps = {
   product: HttpTypes.StoreProduct | Product
   removeProduct: (productId: string) => void
 }
 
-const ProductHeader = ({ product, removeProduct }: ProductHeaderProps) => {
+const ComparedProductHeader = ({
+  product,
+  removeProduct,
+}: ComparedProductHeaderProps) => {
   if (!product) return null
 
   const productUrl = product.handle ? `/products/${product.handle}` : "#"
@@ -51,4 +54,4 @@ const ProductHeader = ({ product, removeProduct }: ProductHeaderProps) => {
   )
 }
 
-export default memo(ProductHeader)
+export default memo(ComparedProductHeader)

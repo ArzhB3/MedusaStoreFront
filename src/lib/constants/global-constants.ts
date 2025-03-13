@@ -1,4 +1,9 @@
 /**
+ * Nav
+ */
+export const DEFAULT_ICON_VERTICAL_POSITION = "translate-y-[1px]"
+
+/**
  * Toast
  */
 export const DEFAULT_TOAST = {

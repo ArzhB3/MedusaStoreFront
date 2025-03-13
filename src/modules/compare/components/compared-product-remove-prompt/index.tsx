@@ -1,18 +1,18 @@
 import { Prompt } from "@medusajs/ui"
 
-type RemoveProductPromptProps = {
+type ComparedProductRemovePromptProps = {
   isOpen: boolean
   onOpenChange: (isOpen: boolean) => void
   onConfirm: () => void
   onCancel: () => void
 }
 
-const RemoveProductPrompt = ({
+const ComparedProductRemovePrompt = ({
   isOpen,
   onOpenChange,
   onConfirm,
   onCancel,
-}: RemoveProductPromptProps) => {
+}: ComparedProductRemovePromptProps) => {
   return (
     <Prompt variant="confirmation" open={isOpen} onOpenChange={onOpenChange}>
       <Prompt.Content className="rounded-lg shadow-lg animate-in fade-in zoom-in-95 duration-200 origin-center">
@@ -45,4 +45,4 @@ const RemoveProductPrompt = ({
   )
 }
 
-export default RemoveProductPrompt
+export default ComparedProductRemovePrompt
