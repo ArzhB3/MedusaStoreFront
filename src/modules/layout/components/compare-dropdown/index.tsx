@@ -10,13 +10,14 @@ import { Fragment, useCallback, useEffect, useRef, useState } from "react"
 import { usePathname } from "next/navigation"
 
 import { Button, IconButton } from "@medusajs/ui"
-import { XCircle, Trash } from "@medusajs/icons"
+import { XCircle, Trash, GridList } from "@medusajs/icons"
 
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import Thumbnail from "@modules/products/components/thumbnail"
 
 import { useCompareContext } from "@lib/context/compare-context"
 import { MIN_COMPARED_PRODUCTS } from "@lib/constants/compare-constants"
+import { DEFAULT_ICON_VERTICAL_POSITION } from "@lib/constants/global-constants"
 
 import CompareSlot, { compareSlotStyles } from "./components/compare-slot"
 
@@ -63,10 +64,13 @@ const CompareDropdown = () => {
       <Popover className="relative h-full">
         <PopoverButton className="h-full">
           <LocalizedClientLink
-            className="hover:text-ui-fg-base"
+            className="hover:text-ui-fg-base flex items-center gap-x-1"
             href="/compare"
             data-testid="nav-compare-link"
-          >{`Compare (${totalComparedProducts})`}</LocalizedClientLink>
+          >
+            <GridList className={DEFAULT_ICON_VERTICAL_POSITION} />
+            <span>{`(${totalComparedProducts})`}</span>
+          </LocalizedClientLink>
         </PopoverButton>
         <Transition
           show={compareDropdownOpen}

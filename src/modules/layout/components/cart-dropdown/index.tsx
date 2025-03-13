@@ -1,21 +1,26 @@
 "use client"
 
+import { Fragment, useEffect, useRef, useState } from "react"
+import { usePathname } from "next/navigation"
 import {
   Popover,
   PopoverButton,
   PopoverPanel,
   Transition,
 } from "@headlessui/react"
-import { convertToLocale } from "@lib/util/money"
+
 import { HttpTypes } from "@medusajs/types"
 import { Button } from "@medusajs/ui"
+import { ShoppingCart, ShoppingCartSolid } from "@medusajs/icons"
+
+import { convertToLocale } from "@lib/util/money"
+import { DEFAULT_ICON_VERTICAL_POSITION } from "@lib/constants/global-constants"
+
 import DeleteButton from "@modules/common/components/delete-button"
 import LineItemOptions from "@modules/common/components/line-item-options"
 import LineItemPrice from "@modules/common/components/line-item-price"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import Thumbnail from "@modules/products/components/thumbnail"
-import { usePathname } from "next/navigation"
-import { Fragment, useEffect, useRef, useState } from "react"
 
 const CartDropdown = ({
   cart: cartState,
@@ -34,6 +39,8 @@ const CartDropdown = ({
     cartState?.items?.reduce((acc, item) => {
       return acc + item.quantity
     }, 0) || 0
+
+  const CartIcon = totalItems > 0 ? ShoppingCartSolid : ShoppingCart
 
   const subtotal = cartState?.subtotal ?? 0
   const itemRef = useRef<number>(totalItems || 0)
@@ -86,10 +93,13 @@ const CartDropdown = ({
       <Popover className="relative h-full">
         <PopoverButton className="h-full">
           <LocalizedClientLink
-            className="hover:text-ui-fg-base"
+            className="hover:text-ui-fg-base flex items-center gap-x-1"
             href="/cart"
             data-testid="nav-cart-link"
-          >{`Cart (${totalItems})`}</LocalizedClientLink>
+          >
+            <CartIcon className={DEFAULT_ICON_VERTICAL_POSITION} />
+            <span>{`(${totalItems})`}</span>
+          </LocalizedClientLink>
         </PopoverButton>
         <Transition
           show={cartDropdownOpen}

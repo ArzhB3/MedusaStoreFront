@@ -1,7 +1,11 @@
 import { Suspense } from "react"
 
-import { listRegions } from "@lib/data/regions"
 import { StoreRegion } from "@medusajs/types"
+import { GridList, ShoppingCart, User } from "@medusajs/icons"
+
+import { listRegions } from "@lib/data/regions"
+import { DEFAULT_ICON_VERTICAL_POSITION } from "@lib/constants/global-constants"
+
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
 import CompareButton from "@modules/layout/components/compare-button"
@@ -37,7 +41,7 @@ export default async function Nav() {
                 href="/account"
                 data-testid="nav-account-link"
               >
-                Account
+                <User className={DEFAULT_ICON_VERTICAL_POSITION} />
               </LocalizedClientLink>
             </div>
             <Suspense
@@ -47,7 +51,8 @@ export default async function Nav() {
                   href="/compare"
                   data-testid="nav-compare-link"
                 >
-                  Compare (0)
+                  <GridList className={DEFAULT_ICON_VERTICAL_POSITION} />
+                  <span>(0)</span>
                 </LocalizedClientLink>
               }
             >
@@ -60,7 +65,8 @@ export default async function Nav() {
                   href="/cart"
                   data-testid="nav-cart-link"
                 >
-                  Cart (0)
+                  <ShoppingCart className={DEFAULT_ICON_VERTICAL_POSITION} />
+                  <span>(0)</span>
                 </LocalizedClientLink>
               }
             >
