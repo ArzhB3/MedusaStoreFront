@@ -9,11 +9,12 @@ import {
 } from "@headlessui/react"
 
 import { ArrowRightMini, BarsThree, XMark } from "@medusajs/icons"
-import { Text, clx, useToggleState } from "@medusajs/ui"
+import { Button, Text, clx, useToggleState } from "@medusajs/ui"
 import { HttpTypes } from "@medusajs/types"
 
 import { DEFAULT_ICON_VERTICAL_POSITION } from "@lib/constants/global-constants"
 
+import { ThemeToggleButton } from "@modules/common/components/theme-toggle-button"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CountrySelect from "../country-select"
 
@@ -58,10 +59,15 @@ const SideMenu = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }) => {
                     data-testid="nav-menu-popup"
                     className="flex flex-col h-full bg-[rgba(3,7,18,0.5)] rounded-rounded justify-between p-6"
                   >
-                    <div className="flex justify-end" id="xmark">
-                      <button data-testid="close-menu-button" onClick={close}>
+                    <div className="flex justify-between" id="popover-header">
+                      <ThemeToggleButton />
+                      <Button
+                        variant="transparent"
+                        data-testid="close-menu-button"
+                        onClick={close}
+                      >
                         <XMark />
-                      </button>
+                      </Button>
                     </div>
                     <ul className="flex flex-col gap-6 items-start justify-start">
                       {Object.entries(SideMenuItems).map(([name, href]) => {
