@@ -66,7 +66,7 @@ const SideMenu = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }) => {
                         data-testid="close-menu-button"
                         onClick={close}
                       >
-                        <XMark />
+                        <XMark className="text-white" />
                       </Button>
                     </div>
                     <ul className="flex flex-col gap-6 items-start justify-start">

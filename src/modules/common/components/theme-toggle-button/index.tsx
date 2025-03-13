@@ -19,7 +19,7 @@ export function ThemeToggleButton() {
         id="theme-toggle"
         checked={theme === "dark"}
         onCheckedChange={toggleTheme}
-        className="data-[state=checked]:bg-white data-[state=unchecked]:bg-black dark:data-[state=checked]:bg-white dark:data-[state=unchecked]:bg-black"
+        className="data-[state=checked]:bg-grey-100 data-[state=unchecked]:bg-black"
       />
       {theme === "dark" ? <MoonSolid /> : <Moon />}
     </div>
