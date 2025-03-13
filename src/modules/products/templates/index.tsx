@@ -10,7 +10,7 @@ import ProductTabs from "@modules/products/components/product-tabs"
 import RelatedProducts from "@modules/products/components/related-products"
 import ProductInfo from "@modules/products/templates/product-info"
 import SkeletonRelatedProducts from "@modules/skeletons/templates/skeleton-related-products"
-import ToggleCompareButton from "@modules/common/components/toggle-compare-button"
+import CompareToggleButton from "@modules/layout/components/compare-toggle-button"
 
 import ProductActionsWrapper from "./product-actions-wrapper"
 
@@ -39,7 +39,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
           <ProductInfo product={product} />
           <ProductTabs product={product} />
           <div className="flex justify-end w-full pr-1">
-            <ToggleCompareButton product={product} />
+            <CompareToggleButton product={product} />
           </div>
         </div>
         <div className="block w-full relative">

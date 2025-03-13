@@ -3,11 +3,11 @@
 import { useCompareContext } from "@lib/context/compare-context"
 import { useCompare, UseCompareOptionsType } from "@lib/hooks/use-compare"
 
-import RemoveProductPrompt from "@modules/compare/components/remove-product-prompt"
-import ProductHeader from "@modules/compare/components/product-header"
-import ProductAttributes from "@modules/compare/components/product-attributes"
+import ComparedProductRemovePrompt from "@modules/compare/components/compared-product-remove-prompt"
+import ComparedProductHeader from "@modules/compare/components/compared-product-header"
+import ComparedProductAttributes from "@modules/compare/components/compared-product-attributes"
 import CompareErrorHandler from "../components/compare-error-handler"
-import EmptyCompareMessage from "../components/empty-compare-message"
+import CompareEmptyMessage from "../components/compare-empty-message"
 
 type CompareTemplateProps = UseCompareOptionsType
 
@@ -37,7 +37,7 @@ const CompareTemplate = ({ initialProducts }: CompareTemplateProps) => {
                     <tr>
                       <th className="p-4 border text-left bg-gray-50 min-w-[180px]"></th>
                       {products.map((product) => (
-                        <ProductHeader
+                        <ComparedProductHeader
                           key={product.id}
                           product={product}
                           removeProduct={handleRemoveProduct}
@@ -45,11 +45,11 @@ const CompareTemplate = ({ initialProducts }: CompareTemplateProps) => {
                       ))}
                     </tr>
                   </thead>
-                  <ProductAttributes products={products} />
+                  <ComparedProductAttributes products={products} />
                 </table>
               </div>
 
-              <RemoveProductPrompt
+              <ComparedProductRemovePrompt
                 isOpen={showConfirmDialog}
                 onOpenChange={setShowConfirmDialog}
                 onConfirm={confirmRemoveProduct}
@@ -58,7 +58,7 @@ const CompareTemplate = ({ initialProducts }: CompareTemplateProps) => {
             </>
           ) : (
             <div>
-              <EmptyCompareMessage />
+              <CompareEmptyMessage />
             </div>
           )}
         </div>

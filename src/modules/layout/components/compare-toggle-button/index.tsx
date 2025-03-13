@@ -13,11 +13,11 @@ import {
   MAX_COMPARED_PRODUCTS,
 } from "@lib/constants/compare-constants"
 
-type ToggleCompareButtonProps = {
+type CompareToggleButtonProps = {
   product: HttpTypes.StoreProduct
 }
 
-function ToggleCompareButton({ product }: ToggleCompareButtonProps) {
+function CompareToggleButton({ product }: CompareToggleButtonProps) {
   const { comparedProducts, toggleProduct, isProductCompared } =
     useCompareContext()
 
@@ -72,7 +72,7 @@ function ToggleCompareButton({ product }: ToggleCompareButtonProps) {
       <Button
         className={buttonStyles}
         variant="transparent"
-        data-testid="add-to-compare"
+        data-testid="compared-product-toggle-button"
         type="submit"
         disabled={isComparedFull}
       >
@@ -94,4 +94,4 @@ function ToggleCompareButton({ product }: ToggleCompareButtonProps) {
   )
 }
 
-export default memo(ToggleCompareButton)
+export default memo(CompareToggleButton)

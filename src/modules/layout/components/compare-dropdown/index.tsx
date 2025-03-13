@@ -94,7 +94,7 @@ const CompareDropdown = () => {
                   variant="transparent"
                   className="transition-all duration-300 ease-in-out absolute top-1/2 right-4 -translate-y-1/2 hover:text-red-600 hover:bg-gray-300"
                   onClick={removeAllProducts}
-                  data-testid="clear-all-compare-product-button"
+                  data-testid="compared-products-clear-all-button"
                   title="Clear all"
                 >
                   <Trash />
@@ -123,7 +123,7 @@ const CompareDropdown = () => {
                         variant="transparent"
                         className="absolute top-0 right-0 hover:bg-gray-300 transition-all duration-300 ease-in-out"
                         onClick={() => removeProduct(product.id)}
-                        data-testid="clear-compare-product-{product.handle}-button"
+                        data-testid="compared-product-{product.handle}-clear-button"
                       >
                         <XCircle />
                       </IconButton>
@@ -151,7 +151,7 @@ const CompareDropdown = () => {
                   }`}
                   size="large"
                   disabled={totalComparedProducts < MIN_COMPARED_PRODUCTS}
-                  data-testid="go-to-compare-button"
+                  data-testid="compare-go-to-button"
                 >
                   {totalComparedProducts < MIN_COMPARED_PRODUCTS
                     ? `Add ${

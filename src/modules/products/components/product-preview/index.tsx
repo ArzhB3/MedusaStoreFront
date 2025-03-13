@@ -4,7 +4,7 @@ import { HttpTypes } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import Thumbnail from "../thumbnail"
 import PreviewPrice from "./price"
-import ToggleCompareButton from "@modules/common/components/toggle-compare-button"
+import CompareToggleButton from "@modules/layout/components/compare-toggle-button"
 
 export default async function ProductPreview({
   product,
@@ -38,7 +38,7 @@ export default async function ProductPreview({
         </div>
       </LocalizedClientLink>
       <div className="absolute top-2 right-2">
-        <ToggleCompareButton product={product} />
+        <CompareToggleButton product={product} />
       </div>
     </div>
   )

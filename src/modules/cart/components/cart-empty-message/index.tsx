@@ -2,9 +2,12 @@ import { Heading, Text } from "@medusajs/ui"
 
 import InteractiveLink from "@modules/common/components/interactive-link"
 
-const EmptyCartMessage = () => {
+const CartEmptyMessage = () => {
   return (
-    <div className="py-48 px-2 flex flex-col justify-center items-start" data-testid="empty-cart-message">
+    <div
+      className="py-48 px-2 flex flex-col justify-center items-start"
+      data-testid="cart-empty-message"
+    >
       <Heading
         level="h1"
         className="flex flex-row text-3xl-regular gap-x-2 items-baseline"
@@ -22,4 +25,4 @@ const EmptyCartMessage = () => {
   )
 }
 
-export default EmptyCartMessage
+export default CartEmptyMessage
