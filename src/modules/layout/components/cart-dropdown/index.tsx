@@ -97,7 +97,7 @@ const CartDropdown = ({
             href="/cart"
             data-testid="nav-cart-link"
           >
-            <CartIcon className={DEFAULT_ICON_VERTICAL_POSITION} />
+            <CartIcon style={DEFAULT_ICON_VERTICAL_POSITION} />
             <span>{`(${totalItems})`}</span>
           </LocalizedClientLink>
         </PopoverButton>

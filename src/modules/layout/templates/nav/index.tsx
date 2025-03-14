@@ -41,7 +41,7 @@ export default async function Nav() {
                 href="/account"
                 data-testid="nav-account-link"
               >
-                <User className={DEFAULT_ICON_VERTICAL_POSITION} />
+                <User style={DEFAULT_ICON_VERTICAL_POSITION} />
               </LocalizedClientLink>
             </div>
             <Suspense
@@ -51,7 +51,7 @@ export default async function Nav() {
                   href="/compare"
                   data-testid="nav-compare-link"
                 >
-                  <GridList className={DEFAULT_ICON_VERTICAL_POSITION} />
+                  <GridList style={DEFAULT_ICON_VERTICAL_POSITION} />
                   <span>(0)</span>
                 </LocalizedClientLink>
               }
@@ -65,7 +65,7 @@ export default async function Nav() {
                   href="/cart"
                   data-testid="nav-cart-link"
                 >
-                  <ShoppingCart className={DEFAULT_ICON_VERTICAL_POSITION} />
+                  <ShoppingCart style={DEFAULT_ICON_VERTICAL_POSITION} />
                   <span>(0)</span>
                 </LocalizedClientLink>
               }

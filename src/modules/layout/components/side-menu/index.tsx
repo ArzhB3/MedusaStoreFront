@@ -40,7 +40,7 @@ const SideMenu = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }) => {
                   data-testid="nav-menu-button"
                   className="relative h-full flex items-center transition-all ease-out duration-200 focus:outline-none hover:text-ui-fg-base"
                 >
-                  <BarsThree className={DEFAULT_ICON_VERTICAL_POSITION} />
+                  <BarsThree style={DEFAULT_ICON_VERTICAL_POSITION} />
                 </PopoverButton>
               </div>
 

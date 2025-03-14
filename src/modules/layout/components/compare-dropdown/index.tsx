@@ -68,7 +68,7 @@ const CompareDropdown = () => {
             href="/compare"
             data-testid="nav-compare-link"
           >
-            <GridList className={DEFAULT_ICON_VERTICAL_POSITION} />
+            <GridList style={DEFAULT_ICON_VERTICAL_POSITION} />
             <span>{`(${totalComparedProducts})`}</span>
           </LocalizedClientLink>
         </PopoverButton>
