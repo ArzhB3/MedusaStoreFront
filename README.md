@@ -1,125 +1,142 @@
-<p align="center">
-  <a href="https://www.medusajs.com">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/59018053/229103275-b5e482bb-4601-46e6-8142-244f531cebdb.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/59018053/229103726-e5b529a3-9b3f-4970-8a1f-c6af37f087bf.svg">
-    <img alt="Medusa logo" src="https://user-images.githubusercontent.com/59018053/229103726-e5b529a3-9b3f-4970-8a1f-c6af37f087bf.svg">
-    </picture>
-  </a>
-</p>
-
 <h1 align="center">
-  Medusa Next.js Starter Template
+  Enhanced Medusa Storefront Project
 </h1>
 
-<p align="center">
-Combine Medusa's modules for your commerce backend with the newest Next.js 15 features for a performant storefront.</p>
+# Introduction
 
-<p align="center">
-  <a href="https://github.com/medusajs/medusa/blob/master/CONTRIBUTING.md">
-    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat" alt="PRs welcome!" />
-  </a>
-  <a href="https://discord.gg/xpCwq3Kfn8">
-    <img src="https://img.shields.io/badge/chat-on%20discord-7289DA.svg" alt="Discord Chat" />
-  </a>
-  <a href="https://twitter.com/intent/follow?screen_name=medusajs">
-    <img src="https://img.shields.io/twitter/follow/medusajs.svg?label=Follow%20@medusajs" alt="Follow @medusajs" />
-  </a>
-</p>
+This project extends the Medusa Storefront with additional features, enhancing the e-commerce experience.
 
-### Prerequisites
+# Key Features
 
-To use the [Next.js Starter Template](https://medusajs.com/nextjs-commerce/), you should have a Medusa server running locally on port 9000.
-For a quick setup, run:
+### Product Comparison
+Users can add products to a dropdown menu, enabling easy comparison on a dedicated page.  
+This feature allows customers to make informed decisions by directly contrasting product attributes.
 
-```shell
-npx create-medusa-app@latest
-```
+### Dark Mode (In Progress)
+A dark mode option has been implemented, offering users an alternative visual experience.  
+While currently not covering the entire application, this feature is actively being developed and expanded.
 
-Check out [create-medusa-app docs](https://docs.medusajs.com/learn/installation) for more details and troubleshooting.
+# Overview & Demo
 
-# Overview
+### Compare Dropdown (Initial State)
 
-The Medusa Next.js Starter is built with:
+The animation demonstrates the initial state of the compare dropdown.  
+This feature provides users with a dedicated space to add products they wish to compare.  
+While currently empty, the dropdown dynamically updates as items are selected, displaying product thumbnails for quick previews.
 
-- [Next.js](https://nextjs.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Typescript](https://www.typescriptlang.org/)
-- [Medusa](https://medusajs.com/)
+This intuitive interface ensures a seamless comparison experience by keeping selected products easily accessible in one place.  
+Further functionality, such as adding and removing items, will be showcased in subsequent steps.
 
-Features include:
+![Compare Dropdown Empty](https://github.com/user-attachments/assets/071076dc-b989-4e61-8ee2-b4a86e132ec7)
 
-- Full ecommerce support:
-  - Product Detail Page
-  - Product Overview Page
-  - Product Collections
-  - Cart
-  - Checkout with Stripe
-  - User Accounts
-  - Order Details
-- Full Next.js 15 support:
-  - App Router
-  - Next fetching/caching
-  - Server Components
-  - Server Actions
-  - Streaming
-  - Static Pre-Rendering
+### Compare Dropdown (Differents State)
 
-# Quickstart
+![compare-dropdown-empty](https://github.com/user-attachments/assets/a4efeeae-ac67-403a-ad3a-88d91a3b96da)
 
-### Setting up the environment variables
+![compare-dropdown-1-products](https://github.com/user-attachments/assets/a9a06cf5-00c8-414d-a20d-5607799930ed)
 
-Navigate into your projects directory and get your environment variables ready:
+![compare-dropdown-2-products](https://github.com/user-attachments/assets/2ec73469-4dd2-481a-bba6-a12a51edac6f)
 
-```shell
-cd nextjs-starter-medusa/
-mv .env.template .env.local
-```
+![compare-dropdown-3-products](https://github.com/user-attachments/assets/d03bb165-c7cd-4fba-b31e-a7fa3756f0ef)
 
-### Install dependencies
+### Compare Toggle Button (Add & Remove Product)
 
-Use Yarn to install all dependencies.
+This animation demonstrates the functionality of the compare toggle button.  
+Users can interact with this button to seamlessly add or remove products from the comparison list. 
 
-```shell
-yarn
-```
+When clicked:
+- Add to Compare: The product is added to the dropdown for comparison, ready to be previewed.
+- Remove from Compare: The product is removed from the dropdown, keeping the list updated in real-time.
 
-### Start developing
+This feature enhances user control and flexibility, allowing customers to curate their comparison list effortlessly.  
+The intuitive design ensures a smooth and responsive interaction, contributing to an improved shopping experience.
 
-You are now ready to start up your project.
+![Compare Toggle Button](https://github.com/user-attachments/assets/3fae4c17-1f65-4adb-b343-1bd1ff1f7cd9)
 
-```shell
-yarn dev
-```
+### Compare Toggle Button (Add Maximum Product)
 
-### Open the code and start customizing
+This animation demonstrates the behavior of the compare toggle button when the maximum limit of items (3 products) is reached.  
 
-Your site is now running at http://localhost:8000!
+As users interact with the button:
+- Products are added to the comparison dropdown one by one.
+- Once three products have been added, the button becomes disabled for additional items, ensuring the limit is respected.
+- Users can still remove items from the dropdown to free up space for new selections.
 
-# Payment integrations
+This feature ensures a smooth and intuitive user experience by enforcing constraints while maintaining flexibility.  
+It also highlights how the application dynamically updates based on user interactions, providing real-time feedback.
 
-By default this starter supports the following payment integrations
+![Compare Toggle Button Full List](https://github.com/user-attachments/assets/3da3b278-8376-4d92-b12b-321273e9e051)
 
-- [Stripe](https://stripe.com/)
+### Compare Toggle Button (On Product Page)
 
-To enable the integrations you need to add the following to your `.env.local` file:
+This animation demonstrates the seamless integration of the compare toggle button directly within the product page.  
+Users can easily add or remove the displayed product to/from the comparison list without navigating away.
 
-```shell
-NEXT_PUBLIC_STRIPE_KEY=<your-stripe-public-key>
-```
+Key highlights include:
 
-You'll also need to setup the integrations in your Medusa server. See the [Medusa documentation](https://docs.medusajs.com) for more information on how to configure [Stripe](https://docs.medusajs.com/resources/commerce-modules/payment/payment-provider/stripe#main).
+- Convenient Access: The compare button is positioned prominently, allowing users to manage their comparison list while reviewing product details.
+- Real-Time Feedback: The dropdown menu updates instantly to reflect changes, ensuring a smooth and responsive user experience.
+- Streamlined Interaction: This feature eliminates unnecessary steps, enabling users to quickly curate their comparison list as they browse.
 
-# Resources
+By embedding this functionality into the product page, the application enhances usability and simplifies the decision-making process for customers.
 
-## Learn more about Medusa
+![Compare Toggle Product On Product Page](https://github.com/user-attachments/assets/b2d4442b-f8a6-4897-9074-4f18aa734e0f)
 
-- [Website](https://www.medusajs.com/)
-- [GitHub](https://github.com/medusajs)
-- [Documentation](https://docs.medusajs.com/)
+### Compare Add/Remove Toast
 
-## Learn more about Next.js
+This animation demonstrates the toast notifications that appear when products are added to or removed from the comparison list.  
+These notifications provide immediate feedback to users, enhancing clarity and interactivity.
 
-- [Website](https://nextjs.org/)
-- [GitHub](https://github.com/vercel/next.js)
-- [Documentation](https://nextjs.org/docs)
+Key behaviors include:
+- Add Notification: A toast appears confirming that a product has been successfully added to the comparison list.
+- Remove Notification: Similarly, a toast is displayed when a product is removed, keeping users informed of their actions.
+
+The notifications are designed to be non-intrusive, disappearing automatically after a short duration.
+This feature improves the user experience by ensuring transparency and responsiveness during interactions with the comparison functionality.
+
+![Compare Add-Remove Toast](https://github.com/user-attachments/assets/b4a2a58a-7811-4c00-a95b-d5f8c756e15a)
+
+### Compare List Clear Product One By One
+
+This animation demonstrates the functionality for clearing products from the comparison list individually. 
+Users can remove items one by one directly from the dropdown menu, ensuring precise control over their comparison selections.
+
+Key features include:
+- Selective Removal: Each product in the comparison list has a dedicated remove button, allowing users to clear specific items without affecting the rest of the list.
+- Real-Time Updates: The dropdown menu dynamically reflects changes as products are removed, maintaining an accurate and responsive interface.
+- User-Friendly Design: The intuitive interaction ensures customers can effortlessly manage their comparison list.
+
+This feature enhances flexibility and usability, enabling users to refine their comparison choices with ease during their shopping experience.
+
+![Compare List Clear Product One By One](https://github.com/user-attachments/assets/890e67f8-6dd1-46c7-9005-6ddb9e7e8f13)
+
+### Compare List Clear All Products
+
+This animation demonstrates the functionality for clearing all products from the comparison list in one action.  
+Users can efficiently reset their comparison selections with a single click, simplifying the process.
+
+Key features include:
+- Bulk Removal: A dedicated "Clear All" button (trash icon) allows users to remove all items from the comparison list at once.
+- Instant Feedback: The dropdown menu updates immediately, reflecting the cleared state.
+- Convenience: This feature is ideal for users who wish to start a new comparison or quickly reset their selections.
+
+By providing this bulk removal option, the application enhances usability and ensures a streamlined experience for customers managing their comparison lists.
+
+![Compare List Clear All Products](https://github.com/user-attachments/assets/a7f85f4c-a908-4681-ba27-5191b5428fb4)
+
+### Compare Page And Redirection
+
+This animation demonstrates the functionality of the comparison page and the redirection process. After selecting products to compare, users can navigate to a dedicated comparison page where detailed product attributes are displayed side by side.
+
+Key features include:
+- Side-by-Side Comparison: The comparison page organizes selected products into a clear, tabular format, showcasing attributes such as descriptions, weight, dimensions, and more.
+- Dynamic Redirection: Clicking the "Compare" button redirects users seamlessly to this page, ensuring an intuitive flow from product selection to detailed comparison.
+- Enhanced Decision-Making: The layout is designed to help users easily evaluate differences between products, simplifying their shopping choices.
+
+This feature provides an essential tool for customers looking to make informed decisions, further enriching the e-commerce experience.
+
+![Compare Page And Redirection](https://github.com/user-attachments/assets/2259952a-453d-4ddb-a6ec-bc5b93158b98)
+
+### Dark Mode
+
+(....In Progress)
