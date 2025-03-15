@@ -26,7 +26,7 @@ const ComparedProductHeader = ({
     <th className="p-4 border min-w-[250px] relative">
       <IconButton
         variant="transparent"
-        className="absolute top-2 right-2 hover:bg-gray-100"
+        className="absolute top-2 right-2 hover:bg-ui-bg-base-hover"
         onClick={() => removeProduct(product.id)}
         aria-label={`Remove ${product.title} from comparison`}
       >
