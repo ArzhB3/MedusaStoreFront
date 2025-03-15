@@ -84,7 +84,7 @@ const CompareDropdown = () => {
         >
           <PopoverPanel
             static
-            className="hidden small:block absolute top-[calc(100%+1px)] right-0 bg-white border-x border-b border-gray-200 w-auto text-ui-fg-base"
+            className="hidden small:block absolute top-[calc(100%+1px)] right-0 bg-ui-bg-base text-ui-fg-base border-ui-border-strong border-x border-b rounded-lg w-auto"
             data-testid="nav-compare-dropdown"
           >
             <div className="p-4 relative">
@@ -92,7 +92,7 @@ const CompareDropdown = () => {
               {totalComparedProducts >= MIN_COMPARED_PRODUCTS && (
                 <IconButton
                   variant="transparent"
-                  className="transition-all duration-300 ease-in-out absolute top-1/2 right-4 -translate-y-1/2 hover:text-red-600 hover:bg-gray-300"
+                  className="transition-all duration-300 ease-in-out absolute top-1/2 right-4 -translate-y-1/2 hover:text-red-600 hover:bg-ui-bg-base-hover"
                   onClick={removeAllProducts}
                   data-testid="compared-products-clear-all-button"
                   title="Clear all"
