@@ -123,7 +123,7 @@ const ComparedProductAttributes = ({
     <tbody>
       {attributes.map((attribute) => (
         <tr key={attribute.name}>
-          <td className="p-4 border font-medium bg-gray-50">
+          <td className="p-4 border font-medium bg-ui-bg-component">
             {attribute.name}
           </td>
           {products.map((product) => (

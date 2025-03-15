@@ -35,7 +35,7 @@ const CompareTemplate = ({ initialProducts }: CompareTemplateProps) => {
                 <table className="w-full border-collapse">
                   <thead>
                     <tr>
-                      <th className="p-4 border text-left bg-gray-50 min-w-[180px]"></th>
+                      <th className="p-4 border text-left bg-ui-bg-component min-w-[180px]"></th>
                       {products.map((product) => (
                         <ComparedProductHeader
                           key={product.id}

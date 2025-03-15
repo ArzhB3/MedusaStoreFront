@@ -39,7 +39,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
           <ProductInfo product={product} />
           <ProductTabs product={product} />
           <div className="flex justify-end w-full pr-1">
-            <CompareToggleButton product={product} />
+            <CompareToggleButton product={product} isInProductTemplate={true} />
           </div>
         </div>
         <div className="block w-full relative">
