@@ -84,7 +84,7 @@ const CompareDropdown = () => {
         >
           <PopoverPanel
             static
-            className="hidden small:block absolute top-[calc(100%+1px)] right-0 bg-ui-bg-base text-ui-fg-base border-ui-border-strong border-x border-b rounded-lg w-auto"
+            className="hidden small:block absolute top-[calc(100%+1px)] right-0 bg-ui-bg-base text-ui-fg-base border-ui-border-strong border-x border-b rounded-lg shadow-lg w-auto"
             data-testid="nav-compare-dropdown"
           >
             <div className="p-4 relative">
